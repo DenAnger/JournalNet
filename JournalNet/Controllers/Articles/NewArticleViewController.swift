@@ -9,57 +9,44 @@ import SwiftUI
 import SwiftData
 
 struct NewArticleViewController: View {
+	
 	@Environment(\.modelContext)
 	private var modelContext
 	
 	@Environment(\.dismiss)
 	private var dismiss
 	
-	@State private var headline: String = ""
-	@State private var sport: String = ""
-	@State private var status: String = "Status"
-	@State private var publisher: String = ""
-	@State private var article: String = ""
+	@State
+	private var headline = ""
 	
-	@FocusState private var isTextFieldFocused: Bool
+	@State
+	private var sport = ""
 	
+	@State
+	private var status = "Status"
+	
+	@State
+	private var publisher = ""
+	
+	@State
+	private var article = ""
+	
+	@FocusState
+	private var isTextFieldFocused: Bool
+	
+	private let title = TextTheme.Title.newArticle
 	private let backgroundColor = ColorTheme.background
 	private let backgroundViewColor = ColorTheme.backgroundView
 	private let textColor = ColorTheme.text
+	private let headlinePlaceholder = TextTheme.Placeholder.headline
+	private let publisherPlaceholder = TextTheme.Placeholder.publisher
+	private let articlePlaceholder = TextTheme.Placeholder.article
 	
 	var body: some View {
 		NavigationStack {
 			ZStack {
 				Color(backgroundColor).ignoresSafeArea()
-				ScrollView {
-					VStack(spacing: 16) {
-						TextFieldView(text: $headline, placeholder: "Headline")
-						CarouselView(selectedSport: $sport)
-						menuView
-						
-						TextFieldView(text: $publisher, placeholder: "Publisher")
-						TextFieldView(text: $article, placeholder: "Article text", axis: .vertical)
-						
-						Spacer()
-						AddButton(action: {
-							saveNewEvent()
-							dismiss()
-						})
-						.padding(.bottom, 10)
-						.disabled(
-							headline.isEmpty ||
-							sport.isEmpty ||
-							status.isEmpty ||
-							publisher.isEmpty ||
-							article.isEmpty
-						)
-					}
-					.focused($isTextFieldFocused)
-					
-					.padding(.top, 18)
-					.padding(.horizontal, 16)
-					.ignoresSafeArea(.keyboard)
-				}
+				scrollView
 			}
 			.onTapGesture {
 				if isTextFieldFocused {
@@ -67,7 +54,7 @@ struct NewArticleViewController: View {
 				}
 			}
 			
-			.navigationTitle("New article")
+			.navigationTitle(title)
 			.navigationBarTitleDisplayMode(.large)
 			.navigationBarTitleTextColor(.white)
 			
@@ -90,6 +77,38 @@ private extension NewArticleViewController {
 			Constant.cornerRadius
 				.stroke(color, lineWidth: 1)
 		)
+	}
+	
+	var scrollView: some View {
+		ScrollView {
+			VStack(spacing: 16) {
+				TextFieldView(text: $headline, placeholder: headlinePlaceholder)
+				CarouselView(selectedSport: $sport)
+				menuView
+				
+				TextFieldView(text: $publisher, placeholder: publisherPlaceholder)
+				TextFieldView(text: $article, placeholder: articlePlaceholder, axis: .vertical)
+				
+				Spacer()
+				AddButton(action: {
+					saveNewEvent()
+					dismiss()
+				})
+				.padding(.bottom, 10)
+				.disabled(
+					headline.isEmpty ||
+					sport.isEmpty ||
+					status.isEmpty ||
+					publisher.isEmpty ||
+					article.isEmpty
+				)
+			}
+			.focused($isTextFieldFocused)
+			
+			.padding(.top, 18)
+			.padding(.horizontal, 16)
+			.ignoresSafeArea(.keyboard)
+		}
 	}
 }
 

@@ -8,51 +8,56 @@
 import SwiftUI
 
 struct TabViewController: View {
-	
 	private let color = ColorTheme.backgroundTab
 	private let textColor = ColorTheme.text
 	
 	var body: some View {
+		tabView
+		.onAppear() {
+			UITabBar.appearance().backgroundColor = color
+			UITabBar.appearance().barTintColor = textColor
+		}
+	}
+}
+
+private extension TabViewController {
+	var tabView: some View {
 		TabView {
 			ArticlesViewController()
 				.tabItem {
 					Label(
-						TextTheme.Main.articles,
+						TextTheme.Title.articles,
 						systemImage: ImageTheme.doc
 					)
 				}
 			EventsViewController()
 				.tabItem {
 					Label(
-						TextTheme.Main.events,
+						TextTheme.Title.events,
 						systemImage: ImageTheme.trophy
 					)
 				}
 			BudgetsViewController()
 				.tabItem {
 					Label(
-						TextTheme.Main.budget,
+						TextTheme.Title.budget,
 						systemImage: ImageTheme.dollar
 					)
 				}
 			PostsViewController()
 				.tabItem {
 					Label(
-						TextTheme.Main.posts,
+						TextTheme.Title.posts,
 						systemImage: ImageTheme.newspaper
 					)
 				}
 			SettingsViewController()
 				.tabItem {
 					Label(
-						TextTheme.Main.settings,
-						systemImage: ImageTheme.newspaper
+						TextTheme.Title.settings,
+						systemImage: ImageTheme.gear
 					)
 				}
-		}
-		.onAppear() {
-			UITabBar.appearance().backgroundColor = color
-			UITabBar.appearance().barTintColor = textColor
 		}
 	}
 }

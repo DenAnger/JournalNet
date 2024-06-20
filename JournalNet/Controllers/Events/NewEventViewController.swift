@@ -16,51 +16,42 @@ struct NewEventViewController: View {
 	@Environment(\.dismiss)
 	private var dismiss
 	
-	@State private var homeTeam: String = ""
-	@State private var awayTeam: String = ""
-	@State private var homeScore: Int?
-	@State private var awayScore: Int?
-	@State private var sport: String = ""
-	@State private var location: String = ""
-	@State private var date: Date = .now
+	@State
+	private var homeTeam = ""
 	
-	@FocusState private var isTextFieldFocused: Bool
+	@State
+	private var awayTeam = ""
 	
+	@State
+	private var homeScore: Int?
+	
+	@State
+	private var awayScore: Int?
+	
+	@State
+	private var sport = ""
+	
+	@State
+	private var location = ""
+	
+	@State
+	private var date: Date = .now
+	
+	@FocusState
+	private var isTextFieldFocused: Bool
+	
+	private let title = TextTheme.Title.newEvent
 	private let backgroundColor = ColorTheme.background
-	
+	private let homeTeamPlaceholder = TextTheme.Placeholder.teamHome
+	private let awayTeamPlaceholder = TextTheme.Placeholder.teamAway
+	private let teamScorePlaceholder = TextTheme.Placeholder.teamScore
+	private let subtitlePlaceholder = TextTheme.Placeholder.teamScore
+
 	var body: some View {
 		NavigationStack {
 			ZStack {
 				Color(backgroundColor).ignoresSafeArea()
-				ScrollView {
-					VStack(spacing: 16) {
-						firstLine
-						secondLine
-						CarouselView(selectedSport: $sport)
-						verticalStack
-						
-						DatePickerView(selectedDate: $date)
-						
-						Spacer()
-						AddButton(action: {
-							saveNewEvent()
-							dismiss()
-						})
-						.padding(.bottom, 10)
-						.disabled(
-							homeTeam.isEmpty ||
-							awayTeam.isEmpty ||
-							homeScore == nil ||
-							awayScore == nil ||
-							sport.isEmpty ||
-							location.isEmpty
-						)
-					}
-					.focused($isTextFieldFocused)
-					.padding(.top, 18)
-					.padding(.horizontal, 16)
-					.ignoresSafeArea(.keyboard)
-				}
+				scrollView
 			}
 			.onTapGesture {
 				if isTextFieldFocused {
@@ -68,7 +59,7 @@ struct NewEventViewController: View {
 				}
 			}
 			
-			.navigationTitle("New Event")
+			.navigationTitle(title)
 			.navigationBarTitleDisplayMode(.large)
 			.navigationBarTitleTextColor(.white)
 			
@@ -79,9 +70,41 @@ struct NewEventViewController: View {
 }
 
 extension NewEventViewController {
+	var scrollView: some View {
+		ScrollView {
+			VStack(spacing: 16) {
+				firstLine
+				secondLine
+				CarouselView(selectedSport: $sport)
+				verticalStack
+				
+				DatePickerView(selectedDate: $date)
+				
+				Spacer()
+				AddButton(action: {
+					saveNewEvent()
+					dismiss()
+				})
+				.padding(.bottom, 10)
+				.disabled(
+					homeTeam.isEmpty ||
+					awayTeam.isEmpty ||
+					homeScore == nil ||
+					awayScore == nil ||
+					sport.isEmpty ||
+					location.isEmpty
+				)
+			}
+			.focused($isTextFieldFocused)
+			.padding(.top, 18)
+			.padding(.horizontal, 16)
+			.ignoresSafeArea(.keyboard)
+		}
+	}
+	
 	var firstLine: some View {
 		HStack(spacing: 16) {
-			TextFieldView(text: $homeTeam, placeholder: "Team 1")
+			TextFieldView(text: $homeTeam, placeholder: homeTeamPlaceholder)
 			TextFieldView(text: Binding(
 				get: {
 					self.homeScore != nil ? String(self.homeScore!) : ""
@@ -92,14 +115,14 @@ extension NewEventViewController {
 						self.homeScore = value
 					}
 				}
-			), placeholder: "Team score")
+			), placeholder: teamScorePlaceholder)
 			.keyboardType(.numberPad)
 		}
 	}
 	
 	var secondLine: some View {
 		HStack(spacing: 16) {
-			TextFieldView(text: $awayTeam, placeholder: "Team 2")
+			TextFieldView(text: $awayTeam, placeholder: awayTeamPlaceholder)
 			TextFieldView(text: Binding(
 				get: {
 					self.awayScore != nil ? String(self.awayScore!) : ""
@@ -109,23 +132,15 @@ extension NewEventViewController {
 						self.awayScore = value
 					}
 				}
-			), placeholder: "Team score")
+			), placeholder: teamScorePlaceholder)
 			.keyboardType(.numberPad)
 		}
 	}
 	
 	var verticalStack: some View {
 		VStack(spacing: 16) {
-			TextFieldView(text: $location, placeholder: "Subtitle")
+			TextFieldView(text: $location, placeholder: subtitlePlaceholder)
 		}
-	}
-	
-	var dateFormat: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-		
-		let dateString = dateFormatter.string(from: date)
-		return dateString
 	}
 }
 

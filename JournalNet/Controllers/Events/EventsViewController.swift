@@ -16,7 +16,10 @@ struct EventsViewController: View {
 	@Query
 	private var events: [Event] = []
 	
+	private let title = TextTheme.Title.events
 	private let backgroundColor = ColorTheme.background
+	private let titleEmpty = TextTheme.Empty.Title.event
+	private let descriptionEmpty = TextTheme.Empty.Description.event
 	
 	var body: some View {
 		NavigationStack {
@@ -25,8 +28,8 @@ struct EventsViewController: View {
 				
 				if events.isEmpty {
 					EmptyListView(
-						title: "No events added",
-						description: "Add an event with the plus icon above"
+						title: titleEmpty,
+						description: descriptionEmpty
 					)
 				} else {
 					navigationStack
@@ -40,7 +43,7 @@ struct EventsViewController: View {
 					}
 				)
 			}
-			.navigationTitle("Events")
+			.navigationTitle(title)
 			.navigationBarTitleDisplayMode(.large)
 			.navigationBarTitleTextColor(.white)
 		}
@@ -50,7 +53,7 @@ struct EventsViewController: View {
 private extension EventsViewController {
 	var navigationStack: some View {
 		List(events, id: \.id) { event in
-			ZStack {				
+			ZStack {
 				MainCell(
 					contentView: ContentView(contentType: .date(event.date)),
 					title: event.homeTeam,
@@ -71,5 +74,5 @@ private extension EventsViewController {
 }
 
 #Preview {
-    EventsViewController()
+	EventsViewController()
 }

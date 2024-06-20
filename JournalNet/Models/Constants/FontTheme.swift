@@ -10,4 +10,4 @@ import Foundation
 enum FontTheme {
 	static let sfProBold = "SFProText-Bold"
 	static let sfProRegular = "SFProText-Regular"
-	}
+}

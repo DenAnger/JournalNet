@@ -9,14 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct ArticlesViewController: View {
+	
 	@Environment(\.modelContext)
 	private var modelContext
 	
 	@Query
 	private var articles: [Article] = []
 	
-	private let title = TextTheme.Main.articles
+	private let title = TextTheme.Title.articles
 	private let backgroundColor = ColorTheme.background
+	private let titleEmpty = TextTheme.Empty.Title.article
+	private let descriptionEmpty = TextTheme.Empty.Description.article
 	
 	var body: some View {
 		NavigationStack {
@@ -25,8 +28,8 @@ struct ArticlesViewController: View {
 				
 				if articles.isEmpty {
 					EmptyListView(
-						title: TextTheme.Empty.Title.article,
-						description: TextTheme.Empty.Description.article
+						title: titleEmpty,
+						description: descriptionEmpty
 					)
 				} else {
 					navigationStack
@@ -52,6 +55,7 @@ private extension ArticlesViewController {
 		List(articles, id: \.id) { article in
 			ZStack {
 				let contentType: ContentView.ContentType = {
+					
 					guard let sport = Sport(rawValue: article.sport) else {
 						return .none
 					}

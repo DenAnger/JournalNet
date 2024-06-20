@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct DetailEventViewController: View {
+	
 	@Environment(\.modelContext)
 	private var modelContext
 	
@@ -27,46 +28,49 @@ struct DetailEventViewController: View {
 	
 	var body: some View {
 		NavigationStack {
-			ZStack {
-				Color(backgroundColor).ignoresSafeArea()
-				VStack(spacing: 24) {
-					HStack {
-						description
-						Spacer()
-						date
+			mainView
+				.toolbar {
+					ToolbarItem {
+						DeleteBarButton(action: {
+							modelContext.delete(event)
+							dismiss()
+						})
 					}
-					.padding(.top, 10)
-					.padding(.horizontal, 16)
-					ScoreView(
-						homeScore: event.homeScore,
-						awayScore: event.awayScore,
-						homeName: event.homeTeam,
-						awayName: event.awayTeam
-					)
-					Spacer()
 				}
-			}
 			
-			.toolbar {
-				ToolbarItem {
-					DeleteBarButton(action: {
-						modelContext.delete(event)
-						dismiss()
-					})
-				}
-			}
+				.navigationTitle("\(event.homeTeam) VS \(event.awayTeam)")
+				.navigationBarTitleDisplayMode(.large)
+				.navigationBarTitleTextColor(.white)
 			
-			.navigationTitle("\(event.homeTeam) VS \(event.awayTeam)")
-			.navigationBarTitleDisplayMode(.large)
-			.navigationBarTitleTextColor(.white)
-			
-			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading: BackBarButton())
+				.navigationBarBackButtonHidden(true)
+				.navigationBarItems(leading: BackBarButton())
 		}
 	}
 }
 
 private extension DetailEventViewController {
+	var mainView: some View {
+		ZStack {
+			Color(backgroundColor).ignoresSafeArea()
+			VStack(spacing: 24) {
+				HStack {
+					description
+					Spacer()
+					date
+				}
+				.padding(.top, 10)
+				.padding(.horizontal, 16)
+				ScoreView(
+					homeScore: event.homeScore,
+					awayScore: event.awayScore,
+					homeName: event.homeTeam,
+					awayName: event.awayTeam
+				)
+				Spacer()
+			}
+		}
+	}
+	
 	var description: some View {
 		Text(event.location)
 			.font(.custom(font, size: 15))
@@ -81,12 +85,12 @@ private extension DetailEventViewController {
 #Preview {
 	DetailEventViewController(event: .constant(Event(
 		date: .now,
-		homeTeam: "r",
-		awayTeam: "a",
+		homeTeam: "first",
+		awayTeam: "second",
 		homeScore: 0,
 		awayScore: 1,
-		sport: "bask",
+		sport: "basketball",
 		location: "denver"
 	)))
-		.modelContainer(for: Event.self, inMemory: true)
+	.modelContainer(for: Event.self, inMemory: true)
 }

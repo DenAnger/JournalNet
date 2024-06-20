@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct DetailArticleViewController: View {
+	
 	@Environment(\.modelContext)
 	private var modelContext
 	
@@ -31,19 +32,9 @@ struct DetailArticleViewController: View {
 			ZStack {
 				Color(backgroundColor).ignoresSafeArea()
 				VStack(spacing: 24) {
-						firstLine
-					HStack {
-						Text(article.publisher)
-							.font(.custom(font, size: 17))
-							.foregroundStyle(Color(textColor))
-						Spacer()
-					}
-					HStack {
-						Text(article.article)
-							.font(.custom(font, size: 15))
-							.foregroundStyle(Color(mainTextColor))
-						Spacer()
-					}
+					firstLine
+					secondLine
+					thirdLine
 					Spacer()
 				}
 				.padding(.top, 10)
@@ -86,6 +77,24 @@ private extension DetailArticleViewController {
 			ContentView(contentType: contentType)
 		}
 	}
+	
+	var secondLine: some View {
+		HStack {
+			Text(article.publisher)
+				.font(.custom(font, size: 17))
+				.foregroundStyle(Color(textColor))
+			Spacer()
+		}
+	}
+	
+	var thirdLine: some View {
+		HStack {
+			Text(article.article)
+				.font(.custom(font, size: 15))
+				.foregroundStyle(Color(mainTextColor))
+			Spacer()
+		}
+	}
 }
 
 #Preview {
@@ -94,7 +103,7 @@ private extension DetailArticleViewController {
 		sport: "Other",
 		status: "Written",
 		publisher: "Publish",
-		article: "Text"
+		article: "Article"
 	)))
 	.modelContainer(for: Article.self, inMemory: true)
 }
