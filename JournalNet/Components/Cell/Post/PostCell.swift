@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PostCell: View {
-	var title: String
-	var post: String
+	let title: String
+	let post: String
 	
 	private let backgroundCellColor = ColorTheme.backgroundCell
 	private let mainTextColor = ColorTheme.mainText
@@ -26,7 +26,7 @@ struct PostCell: View {
 		.clipShape(Constant.cornerRadius)
 	}
 }
-	
+
 private extension PostCell {
 	var titleView: some View {
 		Text(title)
@@ -48,5 +48,5 @@ private extension PostCell {
 }
 
 #Preview {
-	PostCell(title: "Title", post: "332423")
+	PostCell(title: TextTheme.Placeholder.title, post: "Description")
 }

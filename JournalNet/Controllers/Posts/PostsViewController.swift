@@ -16,7 +16,10 @@ struct PostsViewController: View {
 	@Query
 	private var posts: [Post] = []
 	
+	private let title = TextTheme.Title.posts
 	private let backgroundColor = ColorTheme.background
+	private let titleEmpty = TextTheme.Empty.Title.post
+	private let descriptionEmpty = TextTheme.Empty.Description.post
 	
 	var body: some View {
 		NavigationStack {
@@ -25,8 +28,8 @@ struct PostsViewController: View {
 				
 				if posts.isEmpty {
 					EmptyListView(
-						title: "No posts added",
-						description: "Add an post with the plus icon above"
+						title: titleEmpty,
+						description: descriptionEmpty
 					)
 				} else {
 					navigationStack
@@ -42,7 +45,7 @@ struct PostsViewController: View {
 					)
 				}
 			}
-			.navigationTitle("Posts")
+			.navigationTitle(title)
 			.navigationBarTitleDisplayMode(.large)
 			.navigationBarTitleTextColor(.white)
 		}
@@ -79,5 +82,5 @@ private extension PostsViewController {
 }
 
 #Preview {
-    PostsViewController()
+	PostsViewController()
 }

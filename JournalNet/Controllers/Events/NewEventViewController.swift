@@ -110,7 +110,6 @@ extension NewEventViewController {
 					self.homeScore != nil ? String(self.homeScore!) : ""
 				},
 				set: { newValue in
-					
 					if let value = Int(newValue) {
 						self.homeScore = value
 					}

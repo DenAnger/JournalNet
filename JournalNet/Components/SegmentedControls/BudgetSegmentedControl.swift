@@ -16,9 +16,12 @@ struct BudgetSegmentedControl: View {
 	private let mainTextColor = ColorTheme.mainText
 	private let textColor = ColorTheme.text
 	
+	private let income = TextTheme.Budget.income
+	private let expenses = TextTheme.Budget.expenses
+	
 	init(selectedSegment: Binding<Int>) {
 		self._selectedSegment = selectedSegment
-
+		
 		UISegmentedControl.appearance().backgroundColor = backgroundCellColor
 		UISegmentedControl.appearance().setTitleTextAttributes(
 			[.foregroundColor: textColor, .font: UIFont.systemFont(ofSize: 15)],
@@ -35,8 +38,8 @@ struct BudgetSegmentedControl: View {
 	var body: some View {
 		VStack {
 			Picker("", selection: $selectedSegment) {
-				Text("Income").tag(0)
-				Text("Expenses").tag(1)
+				Text(income).tag(0)
+				Text(expenses).tag(1)
 			}
 			.pickerStyle(SegmentedPickerStyle())
 			.frame(height: 50)

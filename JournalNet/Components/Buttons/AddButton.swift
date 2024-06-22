@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct AddButton: View {
-	
 	let action: () -> Void
 	
 	var body: some View {
 		Button(action: action) {
-			Text("Add")
+			Text(TextTheme.Button.add)
 				.font(.custom(FontTheme.sfProRegular, size: 17))
 				.foregroundStyle(Color(ColorTheme.mainText))
 		}
@@ -26,5 +25,7 @@ struct AddButton: View {
 }
 
 #Preview {
-	AddButton(action: { print("Pressed")})
+	AddButton(action: {
+		print("Pressed")
+	})
 }

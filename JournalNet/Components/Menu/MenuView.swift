@@ -15,34 +15,43 @@ struct MenuView: View {
 	private let mainTextColor = ColorTheme.mainText
 	private let textColor = ColorTheme.text
 	
+	private let write = TextTheme.Status.write
+	private let sent = TextTheme.Status.sent
+	private let publish = TextTheme.Status.publish
+	private let archive = TextTheme.Status.archive
+	private let main = TextTheme.Status.main
+	
+	private let up = "chevron.up"
+	private let down = "chevron.down"
+	
 	var body: some View {
 		Menu {
 			Button(role: .cancel) {
-				status = "Written"
+				status = write
 			} label: {
-				Text("Written")
+				Text(write)
 			}
 			Button(role: .cancel) {
-				status = "Sent"
+				status = sent
 			} label: {
-				Text("Sent")
+				Text(sent)
 			}
 			Button(role: .cancel) {
-				status = "Published"
+				status = publish
 			} label: {
-				Text("Published")
+				Text(publish)
 			}
 			Button(role: .cancel) {
-				status = "Archived"
+				status = archive
 			} label: {
-				Text("Archived")
+				Text(archive)
 			}
 		} label: {
 			HStack {
 				Text(status)
-				Image(systemName: status == "Status" ? "chevron.down" : "chevron.up")
+				Image(systemName: status == main ? down : up)
 			}
-			.foregroundStyle(status == "Status" ? Color(textColor) : Color(mainTextColor))
+			.foregroundStyle(status == main ? Color(textColor) : Color(mainTextColor))
 			.padding(.leading, 10)
 			Spacer()
 		}
@@ -50,5 +59,5 @@ struct MenuView: View {
 }
 
 #Preview {
-	MenuView(status: .constant("St"))
+	MenuView(status: .constant("Example"))
 }

@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct MainCell: View {
-	
-	var contentView: ContentView
-	var title: String
+	let contentView: ContentView
+	let title: String
 	var description: String?
 	
 	private let backgroundCellColor = ColorTheme.backgroundCell
@@ -18,7 +17,7 @@ struct MainCell: View {
 	private let textColor = ColorTheme.text
 	private let font = FontTheme.sfProRegular
 	
-    var body: some View {
+	var body: some View {
 		VStack(spacing: 8) {
 			HStack {
 				contentView
@@ -30,7 +29,7 @@ struct MainCell: View {
 		.padding(20)
 		.background(Color(backgroundCellColor))
 		.clipShape(Constant.cornerRadius)
-    }
+	}
 }
 
 private extension MainCell {
@@ -56,7 +55,9 @@ private extension MainCell {
 }
 
 #Preview {
-	MainCell(contentView: ContentView(contentType: .sport(.basketball)),
-			 title: "Febers vs Toronto",
-			 description: "Sky arena, Denver")
+	MainCell(
+		contentView: ContentView(contentType: .sport(.basketball)),
+		title: "Febers vs Toronto",
+		description: "Sky arena, Denver"
+	)
 }

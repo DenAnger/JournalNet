@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DatePickerView: View {
+	
 	@Binding
 	var selectedDate: Date
 	
@@ -15,7 +16,7 @@ struct DatePickerView: View {
 	private let backgroundViewColor = ColorTheme.backgroundView
 	private let mainTextColor = ColorTheme.mainText
 	private let font = FontTheme.sfProRegular
-
+	
 	var body: some View {
 		HStack {
 			Text(selectedDate.formatted(.dateTime.day().month(.defaultDigits).year()))

@@ -12,13 +12,15 @@ struct BudgetCell: View {
 	
 	@Environment(\.modelContext)
 	private var modelContext
-
-	var budget: Budget
+	
+	let budget: Budget
 	
 	private let backgroundCellColor = ColorTheme.backgroundCell
 	private let mainTextColor = ColorTheme.mainText
 	private let textColor = ColorTheme.text
 	private let font = FontTheme.sfProRegular
+	private let income = TextTheme.Budget.income
+	private let expenses = TextTheme.Budget.expenses
 	
 	var body: some View {
 		VStack(spacing: 8) {
@@ -27,7 +29,7 @@ struct BudgetCell: View {
 				.font(.custom(font, size: 16))
 				.foregroundStyle(Color(mainTextColor))
 				.lineLimit(3)
-
+			
 			Text(sumText)
 				.font(.custom(font, size: 16))
 				.foregroundStyle(sumColor)
@@ -46,17 +48,17 @@ extension BudgetCell {
 				.foregroundStyle(Color(textColor))
 			Spacer()
 			DeleteBarButton(action: {
-					modelContext.delete(budget)
-					try? modelContext.save()
+				modelContext.delete(budget)
+				try? modelContext.save()
 			})
 		}
 	}
 	
 	var sumColor: Color {
 		switch budget.budgetType {
-		case "Income":
+		case income:
 			return .green
-		case "Expenses":
+		case expenses:
 			return .red
 		default:
 			return .clear
@@ -65,9 +67,9 @@ extension BudgetCell {
 	
 	var sumText: String {
 		switch budget.budgetType {
-		case "Income":
+		case income:
 			return "+$\(budget.sum)"
-		case "Expenses":
+		case expenses:
 			return "-$\(budget.sum)"
 		default:
 			return budget.sum

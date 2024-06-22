@@ -19,7 +19,12 @@ struct BudgetsViewController: View {
 	@State
 	private var selectedSegment = 0
 	
+	private let title = TextTheme.Title.budget
 	private let backgroundColor = ColorTheme.background
+	private let titleEmpty = TextTheme.Empty.Title.budget
+	private let descriptionEmpty = TextTheme.Empty.Description.budget
+	private let income = TextTheme.Budget.income
+	private let expenses = TextTheme.Budget.expenses
 	
 	var body: some View {
 		NavigationStack {
@@ -34,13 +39,12 @@ struct BudgetsViewController: View {
 private extension BudgetsViewController {
 	var firstView: some View {
 		VStack(spacing: 16) {
-
 			BudgetSegmentedControl(selectedSegment: $selectedSegment)
 			
 			if budgets.isEmpty {
 				EmptyListView(
-					title: "No incomes added",
-					description: "Add an income with the plus icon above"
+					title: titleEmpty,
+					description: descriptionEmpty
 				)
 				.padding(.top, 124)
 			} else {
@@ -56,15 +60,17 @@ private extension BudgetsViewController {
 				}
 			)
 		}
-		.navigationTitle("Budget")
+		.navigationTitle(title)
 		.navigationBarTitleDisplayMode(.large)
 		.navigationBarTitleTextColor(.white)
 	}
 	
 	var navigationStack: some View {
 		ScrollView {
-			LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())],
-					  spacing: 16) {
+			LazyVGrid(
+				columns: [GridItem(.flexible()), GridItem(.flexible())],
+				spacing: 16
+			) {
 				ForEach(filteredBudgets, id: \.id) { budget in
 					ZStack {
 						BudgetCell(budget: budget)
@@ -83,14 +89,14 @@ private extension BudgetsViewController {
 		budgets.filter { budget in
 			
 			if selectedSegment == 0 {
-				return budget.budgetType == "Income"
+				return budget.budgetType == income
 			} else {
-				return budget.budgetType == "Expenses"
+				return budget.budgetType == expenses
 			}
 		}
 	}
 }
 
 #Preview {
-    BudgetsViewController()
+	BudgetsViewController()
 }

@@ -15,24 +15,28 @@ struct NewPostViewController: View {
 	
 	@Environment(\.dismiss)
 	private var dismiss
-
-	@State
-	private var title: String = ""
-
-	@State
-	private var post: String = ""
 	
-	@FocusState private var isTextFieldFocused: Bool
+	@State
+	private var titleTextField = ""
 	
+	@State
+	private var post = ""
+	
+	@FocusState
+	private var isTextFieldFocused: Bool
+	
+	private let title = TextTheme.Title.newPost
 	private let backgroundColor = ColorTheme.background
+	private let titlePlaceholder = TextTheme.Placeholder.title
+	private let descriptionPlaceholder = TextTheme.Placeholder.title
 	
 	var body: some View {
 		NavigationStack {
 			ZStack {
 				Color(backgroundColor).ignoresSafeArea()
 				VStack(spacing: 16) {
-					TextFieldView(text: $title, placeholder: "Title")
-					TextFieldView(text: $post, placeholder: "Text", axis: .vertical)
+					TextFieldView(text: $titleTextField, placeholder: titlePlaceholder)
+					TextFieldView(text: $post, placeholder: descriptionPlaceholder, axis: .vertical)
 					
 					Spacer()
 					AddButton(action: {
@@ -40,7 +44,7 @@ struct NewPostViewController: View {
 						dismiss()
 					})
 					.padding(.bottom, 10)
-					.disabled(title.isEmpty || post.isEmpty)
+					.disabled(titleTextField.isEmpty || post.isEmpty)
 				}
 				.focused($isTextFieldFocused)
 				.padding(.top, 18)
@@ -52,7 +56,7 @@ struct NewPostViewController: View {
 				}
 			}
 			
-			.navigationTitle("New post")
+			.navigationTitle(title)
 			.navigationBarTitleDisplayMode(.large)
 			.navigationBarTitleTextColor(.white)
 			
@@ -64,8 +68,7 @@ struct NewPostViewController: View {
 
 private extension NewPostViewController {
 	func saveNewPost() {
-		let newPost = Post(title: title,
-						   post: post)
+		let newPost = Post(title: titleTextField, post: post)
 		modelContext.insert(newPost)
 	}
 }

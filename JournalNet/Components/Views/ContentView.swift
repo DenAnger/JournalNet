@@ -15,11 +15,11 @@ struct ContentView: View {
 		case none
 	}
 	
-	var contentType: ContentType
+	let contentType: ContentType
 	
 	private let backgroundViewColor = ColorTheme.backgroundView
 	private let font = FontTheme.sfProRegular
-
+	
 	var body: some View {
 		Group {
 			if case .sport(let sport) = contentType {

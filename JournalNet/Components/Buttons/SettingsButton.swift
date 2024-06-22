@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct SettingsButton: View {
+	let icon: Image
+	let title: String
 	
-	var icon: Image
-	var title: String
-	
-	var backgroundColor: Color
-	var action: () -> Void
+	let backgroundColor: Color
+	let action: () -> Void
 	
 	private let mainTextColor = ColorTheme.mainText
 	
@@ -45,5 +44,10 @@ struct SettingsButton: View {
 }
 
 #Preview {
-	SettingsButton(icon: Image(systemName: "doc"), title: "String", backgroundColor: .red, action: {})
+	SettingsButton(
+		icon: Image(systemName: ImageTheme.progress),
+		title: TextTheme.Button.configuration,
+		backgroundColor: .red,
+		action: { }
+	)
 }

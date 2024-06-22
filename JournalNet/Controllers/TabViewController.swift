@@ -27,35 +27,35 @@ private extension TabViewController {
 				.tabItem {
 					Label(
 						TextTheme.Title.articles,
-						systemImage: ImageTheme.doc
+						systemImage: ImageTheme.article
 					)
 				}
 			EventsViewController()
 				.tabItem {
 					Label(
 						TextTheme.Title.events,
-						systemImage: ImageTheme.trophy
+						systemImage: ImageTheme.event
 					)
 				}
 			BudgetsViewController()
 				.tabItem {
 					Label(
 						TextTheme.Title.budget,
-						systemImage: ImageTheme.dollar
+						systemImage: ImageTheme.budget
 					)
 				}
 			PostsViewController()
 				.tabItem {
 					Label(
 						TextTheme.Title.posts,
-						systemImage: ImageTheme.newspaper
+						systemImage: ImageTheme.post
 					)
 				}
 			SettingsViewController()
 				.tabItem {
 					Label(
 						TextTheme.Title.settings,
-						systemImage: ImageTheme.gear
+						systemImage: ImageTheme.setting
 					)
 				}
 		}

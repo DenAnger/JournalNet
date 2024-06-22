@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct TextFieldView: View {
-
+	
 	@Binding
 	var text: String
 	
 	let placeholder: String
-	
-	var axis: Axis?
+	let axis: Axis?
 	
 	private let backgroundColor = ColorTheme.background
 	private let backgroundViewColor = ColorTheme.backgroundView

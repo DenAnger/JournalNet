@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SettingsCell: View {
-	var icon: String
-	var title: String
+	let icon: String
+	let title: String
 	
-	var action: () -> Void
+	let action: () -> Void
 	
-	var isLastCell: Bool = false
+	private let isLastCell = false
 	
 	private let backgroundCellColor = ColorTheme.backgroundCell
 	private let mainTextColor = ColorTheme.mainText
@@ -46,5 +46,11 @@ struct SettingsCell: View {
 }
 
 #Preview {
-	SettingsCell(icon: "doc", title: "Title", action: {print("check")})
+	SettingsCell(
+		icon: ImageTheme.article,
+		title: TextTheme.Placeholder.title,
+		action: {
+			print("check")
+		}
+	)
 }

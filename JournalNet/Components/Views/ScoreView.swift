@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ScoreView: View {
-	
 	let homeScore: Int
 	let awayScore: Int
 	
@@ -59,5 +58,5 @@ private extension ScoreView {
 }
 
 #Preview {
-	ScoreView(homeScore: 0, awayScore: 0, homeName: "Febers Toronto", awayName: "Toronto Febers")
+	ScoreView(homeScore: 0, awayScore: 0, homeName: "Febers", awayName: "Toronto")
 }

@@ -16,12 +16,12 @@ struct BackBarButton: View {
 		Button(action: {
 			presentationMode.wrappedValue.dismiss()
 		}) {
-			Image(systemName: "chevron.left")
+			Image(systemName: ImageTheme.backBar)
 				.foregroundColor(.white)
 		}
 	}
 }
 
 #Preview {
-    BackBarButton()
+	BackBarButton()
 }

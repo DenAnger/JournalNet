@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CarouselView: View {
-	private let items: [Sport] = [.basketball, .box, .football, .golf, .hockey, .volleyball, .other]
 	
 	@Binding
 	var selectedSport: String
+	
+	private let items: [Sport] = [.basketball, .box, .football, .golf, .hockey, .volleyball, .other]
 	
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false) {

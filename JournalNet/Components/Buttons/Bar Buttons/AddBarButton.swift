@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddBarButton: View {
 	var body: some View {
-		Image(systemName: "plus.circle.fill")
+		Image(systemName: ImageTheme.add)
 			.foregroundStyle(Color(ColorTheme.backgroundView))
 	}
 }

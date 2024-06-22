@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EmptyListView: View {
-	
 	let title: String
 	let description: String
 	

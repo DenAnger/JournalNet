@@ -66,5 +66,5 @@ private extension DetailPostViewController {
 }
 
 #Preview {
-	DetailPostViewController(post: .constant(Post(title: "test", post: "post")))
+	DetailPostViewController(post: .constant(Post(title: "Title", post: "Description Post")))
 }

@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct DeleteBarButton: View {
-	
 	let action: () -> Void
 	
 	var body: some View {
 		Button(action: action) {
-			Image(systemName: "trash")
+			Image(systemName: ImageTheme.delete)
 				.foregroundStyle(.gray)
 		}
 	}
